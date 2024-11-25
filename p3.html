@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <title>calculator</title>
+    </head>
+    <style>
+        body {
+            font-family: Arial,sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image:  url('https://img.freepik.com/premium-vector/pi-day-seamless-pattern-with-mathematical-constants-baked-pie-template-hand-drawn-illustration_2175-12164.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .calculator {
+            width: 240px;
+            background-color: #87cefa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+
+        }
+
+        #display {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: right;
+            margin-bottom: 20px;
+            font-size: 24px;
+            box-shadow: inset 0px 1px 3px rgba(0,0,0,0.2);
+            overflow-x: auto;
+
+
+
+
+            
+        }
+          .buttons {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 10px;
+          }
+
+          button {
+            background: #0386f2;
+            color: aliceblue;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+          }
+          button:hover {
+            background: #1088f1;
+
+          }
+          button:active {
+            background: #3b79a6;
+
+          }
+
+    </style>
+    </head>
+    <body>
+        <div class="calculator">
+            <div id="display">0</div>
+            <div class="buttons">
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button>+</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>-</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>*</button>
+                <button>0</button>
+                <button>c</button>
+                <button>=</button>
+                <button>/</button>
+                          </div>
+        </div>
+     
+
+
+<script>
+    const display= document.getElementById('display');
+    const buttons= document.querySelectorAll('.buttons button');
+    let currentValue = '';
+    let operator = '';
+    let previousValue = '';
+
+    buttons.forEach((button) => {
+        button.addEventListener( 'click' , () => {
+            const value = button.textContent;
+
+            if (!isNaN(value)) {
+            currentValue += value;
+            display.textContent = currentValue;
+
+            }
+            else if (['+','-','*','/'].includes(value)) {
+            
+            if (currentValue !== '') {
+                operator = value;
+                previousValue = currentValue;
+                currentValue = '';
+                display.textContent = operator;
+            }
+        } else if ( value === '='){
+            if (operator && previousValue && currentValue) {
+                const result = eval(`${previousValue} ${operator} ${currentValue}`);
+                display.textContent = result;
+                currentValue = result;
+                currentValue = result.toString();
+                operator = '';
+                previousValue = '';
+            }
+            } else if (value === 'c') {
+                currentValue = '';
+                previousValue = '';
+                operator = '';
+                display.textContent = '0';
+
+
+            }
+        });
+
+    });
+
+</script>
+    </body>
+</html>
